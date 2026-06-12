@@ -1,0 +1,65 @@
+[
+  {
+    "flag": "sent",
+    "recipient": "+27834557896",
+    "messageID": "5748779154",
+    "messageHash": "57:1:DIDCAKE?",
+    "message": "Did you get the cake?"
+  },
+  {
+    "flag": "sent",
+    "recipient": "+27834484567",
+    "messageID": "2304282374",
+    "messageHash": "23:2:WHERETIME.",
+    "message": "Where are you? You are late! I have asked you to be on time."
+  },
+  {
+    "flag": "sent",
+    "recipient": "+27838884567",
+    "messageID": "1806167144",
+    "messageHash": "18:3:ITTIME!",
+    "message": "It is dinner time!"
+  },
+  {
+    "flag": "sent",
+    "recipient": "+27834557896",
+    "messageID": "9891643728",
+    "messageHash": "98:1:DIDCAKE?",
+    "message": "Did you get the cake?"
+  },
+  {
+    "flag": "stored",
+    "recipient": "+27838884567",
+    "messageID": "4271882803",
+    "messageHash": "42:2:WHERETIME.",
+    "message": "Where are you? You are late! I have asked you to be on time."
+  },
+  {
+    "flag": "sent",
+    "recipient": "+27834557896",
+    "messageID": "2439696641",
+    "messageHash": "24:1:DIDCAKE?",
+    "message": "Did you get the cake?"
+  },
+  {
+    "flag": "stored",
+    "recipient": "+27838884567",
+    "messageID": "2534247617",
+    "messageHash": "25:2:WHERETIME.",
+    "message": "Where are you? You are late! I have asked you to be on time."
+  },
+  {
+    "flag": "sent",
+    "recipient": "+27838884567",
+    "messageID": "4705541298",
+    "messageHash": "47:4:ITTIME!",
+    "message": "It is dinner time!"
+  },
+  {
+    "flag": "stored",
+    "recipient": "+27838884567",
+    "messageID": "6141121043",
+    "messageHash": "61:5:OK,YOU",
+    "message": "Ok, I am leaving without you"
+  }
+]

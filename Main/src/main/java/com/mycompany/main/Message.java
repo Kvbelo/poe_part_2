@@ -8,6 +8,7 @@ package com.mycompany.main;
  *
  * @author kabel
  */
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -27,17 +28,17 @@ public class Message {
         this.messageHash = "";
     }
     
-    private String generateMessageID() {
+    String generateMessageID() {
         Random rand = new Random();
         long tenDigitNumber = 1000000000L + (long)(rand.nextDouble() * 9000000000L);
         return String.valueOf(tenDigitNumber);
     }
     
-    public boolean checkMessageID() {
+    public boolean checkMessageID(String messageID1) {
         return messageID.length() <= 10;
     }
     
-    public String checkRecipientCell() {
+    public String checkRecipientCell(String string) {
         String regex = "^\\+27[0-9]{1,10}$";
         if (Pattern.matches(regex, recipient)) {
             return "Cell phone number successfully captured.";
@@ -46,7 +47,7 @@ public class Message {
         }
     }
     
-    public String checkMessageLength() {
+    public String checkMessageLength(String toString) {
         if (message.length() <= 250) {
             return "Message ready to send.";
         } else {
@@ -88,7 +89,7 @@ public class Message {
                "Message: " + message;
     }
     
-    public int returnTotalMessages() {
+    public int returnTotalMessages(int par) {
         return messageCounter;
     }
     
@@ -122,5 +123,28 @@ public class Message {
     
     public static void resetCounter() {
         messageCounter = 0;
+    }
+    
+    public void storeMessage() {
+    try {
+        java.io.FileWriter writer = new java.io.FileWriter("messages.json", true);
+        writer.write("{\n");
+        writer.write(" \"Message ID\": \"" + messageID + "\",\n");
+        writer.write(" \"Message Hash\": \"" + messageHash + "\",\n");
+        writer.write(" \"Recipient\": \"" + recipient + "\",\n");
+        writer.write(" \"Message\": \"" + message + "\"\n");
+        writer.write("},\n");
+        writer.close();
+    } catch (Exception error) {
+        System.out.println("Could not save message.");
+    }
+}
+
+    String createMessageHash(String msgID2, int i, String where_are_you_You_are_late_I_have_asked_y) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    String printMessages(ArrayList<String> testMessages) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

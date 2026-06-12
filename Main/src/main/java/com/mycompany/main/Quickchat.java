@@ -15,11 +15,14 @@ public class Quickchat {
     private Login loginSystem;
     private ArrayList<Message> messages;
     private int totalSent;
+    //private StoredMessage storedMessageSystem;
+    private StoredMessage storedManager;
     
     public Quickchat(Login loginSystem) {
         this.loginSystem = loginSystem;
         this.messages = new ArrayList<>();
         this.totalSent = 0;
+        this.storedManager = new StoredMessage(); 
     }
     
     public void start() {
@@ -46,7 +49,7 @@ public class Quickchat {
                 String recipient = scanner.nextLine();
                 msg.setRecipient(recipient);
                 
-                String recipientCheck = msg.checkRecipientCell();
+                String recipientCheck = msg.checkRecipientCell("08575975889");
                 System.out.println(recipientCheck);
                 if (recipientCheck.equals("Cell phone number successfully captured.")) {
                     validRecipient = true;
@@ -59,7 +62,7 @@ public class Quickchat {
                 String messageText = scanner.nextLine();
                 msg.setMessage(messageText);
                 
-                String lengthCheck = msg.checkMessageLength();
+                String lengthCheck = msg.checkMessageLength(messageText);
                 System.out.println(lengthCheck);
                 if (lengthCheck.equals("Message ready to send.")) {
                     validMessage = true;
@@ -79,13 +82,19 @@ public class Quickchat {
             String sendResult = msg.sendMessage(choice);
             System.out.println(sendResult);
             
+         
             if (choice == 1) {
                 totalSent++;
                 System.out.println("\n" + msg.printMessage());
                 messages.add(msg);
-            } else if (choice == 3) {
-                messages.add(msg);
-            }
+                // Save to stored messages
+                storedManager.addMessage(msg.getMessageID(), msg.getMessageHash(), msg.getRecipient(), msg.getMessage(), "sent");
+            } 
+            else if (choice == 3) {
+                   messages.add(msg);
+                    // Save to stored messages
+                    storedManager.addMessage(msg.getMessageID(), msg.getMessageHash(), msg.getRecipient(), msg.getMessage(), "stored");
+                }
         }
         
         System.out.println("\n" + "=".repeat(50));
@@ -98,6 +107,7 @@ public class Quickchat {
             System.out.println("Option 1) Send Messages");
             System.out.println("Option 2) Show recently sent messages");
             System.out.println("Option 3) Quit");
+            System.out.println("Option 4) Stored Message");
             System.out.print("Choose an option: ");
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -113,10 +123,14 @@ public class Quickchat {
                     System.out.println("Goodbye!");
                     running = false;
                     break;
+                case 4:
+                    storedManager.showMenu(scanner);
+                    break;
                 default:
                     System.out.println("Invalid option. Please try again.");
             }
         }
+        scanner.close();
     }
     
     private void sendMoreMessages(Scanner scanner) {
@@ -134,7 +148,7 @@ public class Quickchat {
                 String recipient = scanner.nextLine();
                 msg.setRecipient(recipient);
                 
-                String recipientCheck = msg.checkRecipientCell();
+                String recipientCheck = msg.checkRecipientCell("08575975889");
                 System.out.println(recipientCheck);
                 if (recipientCheck.equals("Cell phone number successfully captured.")) {
                     validRecipient = true;
@@ -147,7 +161,7 @@ public class Quickchat {
                 String messageText = scanner.nextLine();
                 msg.setMessage(messageText);
                 
-                String lengthCheck = msg.checkMessageLength();
+                String lengthCheck = msg.checkMessageLength(messageText);
                 System.out.println(lengthCheck);
                 if (lengthCheck.equals("Message ready to send.")) {
                     validMessage = true;
@@ -166,14 +180,33 @@ public class Quickchat {
             
             String sendResult = msg.sendMessage(choice);
             System.out.println(sendResult);
-            
-            if (choice == 1) {
-                totalSent++;
-                System.out.println("\n" + msg.printMessage());
+
+            String flag = "";
+        if (choice == 1) {
+           flag = "sent";
+           totalSent++;
+           System.out.println("\n" + msg.printMessage());
+           messages.add(msg);
+           storedManager.addMessage(msg.getMessageID(), msg.getMessageHash(), msg.getRecipient(), msg.getMessage(), "sent");
+        }  
+        else if (choice == 2) {
+                flag = "disregard";
+        } 
+        else if (choice == 3) {
+                flag = "stored";
                 messages.add(msg);
-            } else if (choice == 3) {
-                messages.add(msg);
-            }
+                storedManager.addMessage(msg.getMessageID(), msg.getMessageHash(), msg.getRecipient(), msg.getMessage(), "stored");
+       }
+    // Save to StoredMessage system
+    if (choice == 1 || choice == 3) {
+        storedManager.addMessage(
+        msg.getMessageID(),
+        msg.getMessageHash(),
+        msg.getRecipient(),
+        msg.getMessage(),
+        flag
+      );
+    }
         }
         
         System.out.println("\nTotal number of messages sent: " + totalSent);

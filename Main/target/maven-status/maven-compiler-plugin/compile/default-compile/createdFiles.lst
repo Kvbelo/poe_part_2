@@ -2,3 +2,4 @@ com\mycompany\main\Login.class
 com\mycompany\main\Main.class
 com\mycompany\main\Message.class
 com\mycompany\main\Quickchat.class
+com\mycompany\main\StoredMessage.class

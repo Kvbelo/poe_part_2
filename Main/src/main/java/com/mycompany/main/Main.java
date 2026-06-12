@@ -4,10 +4,6 @@
 
 package com.mycompany.main;
 
-/**
- *
- * @author kabel
- */
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -17,7 +13,7 @@ class Login {
     String cellPhoneNumber;
     String firstName;
     String lastName;
-    private boolean isLoggedIn;  // ADD THIS LINE
+    private boolean isLoggedIn; 
     
     public Login() {
         this.username = "";
@@ -25,7 +21,7 @@ class Login {
         this.cellPhoneNumber = "";
         this.firstName = "";
         this.lastName = "";
-        this.isLoggedIn = false;  // ADD THIS LINE
+        this.isLoggedIn = false;  
     }
     
     public void setFirstName(String firstName) {
@@ -68,7 +64,6 @@ class Login {
         return cellPhoneNumber;
     }
     
-    // ADD THESE TWO METHODS
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
@@ -77,11 +72,11 @@ class Login {
         this.isLoggedIn = loggedIn;
     }
     
-    public boolean checkUserName() {
+    public boolean checkUserName(String kyle) {
         return username.contains("_") && username.length() <= 5;
     }
     
-    public boolean checkPasswordComplexity() {
+    public boolean checkPasswordComplexity(String password1) {
         boolean hasMinLength = password.length() >= 8;
         boolean hasCapital = !password.equals(password.toLowerCase());
         boolean hasNumber = password.matches(".*\\d.*");
@@ -90,21 +85,21 @@ class Login {
         return hasMinLength && hasCapital && hasNumber && hasSpecial;
     }
     
-    public boolean checkCellPhoneNumber() {
+    public boolean checkCellPhoneNumber(String string) {
         String regex = "^\\+27[0-9]{1,10}$";
         return Pattern.matches(regex, cellPhoneNumber);
     }
     
-    public String registerUser() {
-        if (!checkUserName()) {
+    public String registerUser(String john_1, String pass1234, String string, String john, String doe) {
+        if (!checkUserName("kyle!!!!!!!")) {
             return "Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.";
         }
         
-        if (!checkPasswordComplexity()) {
+        if (!checkPasswordComplexity("password")) {
             return "Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.";
         }
         
-        if (!checkCellPhoneNumber()) {
+        if (!checkCellPhoneNumber("08966553")) {
             return "Cell phone number incorrectly formatted or does not contain international code.";
         }
         
@@ -121,6 +116,10 @@ class Login {
         } else {
             return "Username or password incorrect, please try again.";
         }
+    }
+
+    String returnLoginStatus() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
 
@@ -148,7 +147,7 @@ public class Main {
             String username = scanner.nextLine();
             loginSystem.setUsername(username);
             
-            if (loginSystem.checkUserName()) {
+            if (loginSystem.checkUserName("kyle!!!!!!!")) {
                 System.out.println("Username successfully captured.");
                 validUsername = true;
             } else {
@@ -162,7 +161,7 @@ public class Main {
             String password = scanner.nextLine();
             loginSystem.setPassword(password);
             
-            if (loginSystem.checkPasswordComplexity()) {
+            if (loginSystem.checkPasswordComplexity("password")) {
                 System.out.println("Password successfully captured.");
                 validPassword = true;
             } else {
@@ -176,7 +175,7 @@ public class Main {
             String phone = scanner.nextLine();
             loginSystem.setCellPhoneNumber(phone);
             
-            if (loginSystem.checkCellPhoneNumber()) {
+            if (loginSystem.checkCellPhoneNumber("08966553")) {
                 System.out.println("Cell phone number successfully added.");
                 validPhone = true;
             } else {
@@ -184,9 +183,9 @@ public class Main {
             }
         }
         
-        System.out.println("\n" + loginSystem.registerUser());
+        System.out.println("\n" + loginSystem.registerUser("john_1", "Pass@1234", "+27718693002", "John", "Doe"));
         
-        if (loginSystem.registerUser().equals("User successfully registered!")) {
+        if (loginSystem.registerUser("john_1", "Pass@1234", "+27718693002", "John", "Doe").equals("User successfully registered!")) {
             System.out.println(" Login ");
             
             boolean loggedIn = false;
@@ -203,7 +202,7 @@ public class Main {
                 
                 if (loginSystem.loginUser(loginUsername, loginPassword)) {
                     loggedIn = true;
-                    loginSystem.setLoggedIn(true);  // ADD THIS LINE
+                    loginSystem.setLoggedIn(true);
                 } else {
                     attempts++;
                     if (attempts < 3) {
@@ -213,8 +212,10 @@ public class Main {
             }
             
             if (loggedIn) {
-                Quickchat quickChat = new Quickchat(loginSystem);  // ADD THIS LINE
-                quickChat.start();  // ADD THIS LINE
+                Quickchat quickChat = new Quickchat(loginSystem);
+                quickChat.start(); 
+                StoredMessage stoerdMessage = new StoredMessage ();
+                //StoredMessage.start();
             } else {
                 System.out.println("Account locked. Too many failed attempts.");
             }
